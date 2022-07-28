@@ -1,0 +1,11 @@
+
+Secrets*.*
+!Secrets*_Template*.*
+
+Thumbs.db
+desktop.ini
+*.user
+bin*/
+obj*/
+.vs/
+packages/
