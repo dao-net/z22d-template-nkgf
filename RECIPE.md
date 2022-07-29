@@ -80,66 +80,55 @@
 
 See [https://blog.raulnq.com/semantic-versioning-with-gitversion-gitflow](https://blog.raulnq.com/semantic-versioning-with-gitversion-gitflow).
 
-    # mark kickoff of V1
-    git commit -m "kickoff-1.x" --allow-empty
-    git tag kickoff-1.x
-    git tag 1.0.0
-    ↪ SemVer = 1.0.0
-    
-    # create development branch for 1.x from main
+    # create development branch for 0.x from main
     git checkout -b develop
     {
-        git commit -m "starting development 1.x" --allow-empty
-        ↪ SemVer = 1.1.0-alpha.<N>
+        git commit -m "starting development 0.x" --allow-empty
+        ↪ SemVer = 0.1.0-alpha.<N>
 
         # create feature branch from development
         git checkout -b feature/<feature-name>
         {
             git commit -m "starting feature" --allow-empty
-            ↪ SemVer = 1.1.0-<feature-name>.<N>+<N>
+            ↪ SemVer = 0.1.0-<feature-name>.<N>+<N>
 
             git commit -m "done with feature" --allow-empty
-            ↪ SemVer = 1.1.0-<feature-name>.<N>+<N>
+            ↪ SemVer = 0.1.0-<feature-name>.<N>+<N>
         }
 
-        # merge (and archive) feature branch into develop
+        # merge (and archive|delete) feature branch into develop
         git checkout develop
         git merge --no-ff feature/<feature-name>
-        git branch -m feature/<feature-name> feature/×/×<ᵧᵧ.ᵢ><feature-name>
+        git branch -m feature/<feature-name> feature/×/×<ᵧᵧ.ᵢ><feature-name> // or git branch -d feature/<feature-name>
 
         git commit -m "done with development" --allow-empty
-        ↪ SemVer = 1.1.0-alpha.<N>
+        ↪ SemVer = 0.1.0-alpha.<N>
     }
     
     # create release branch from development
     git checkout -b release/<mj>.<mi>.<p>
     {
         git commit -m "starting release" --allow-empty
-        ↪ SemVer = 1.1.0-beta.<N>+<N>
+        ↪ SemVer = 1.0.0-beta.<N>+<N>
 
         git commit -m "done with release preparation → ready for main|production" --allow-empty
-        ↪ SemVer = 1.1.0-beta.<N>+<N>
+        ↪ SemVer = 1.0.0-beta.<N>+<N>
     }
 
     # merge (and not yet archive) release branch into main
     git checkout main
     git merge --no-ff release/<mj>.<mi>.<p>
-    ↪ SemVer = 1.1.0+<N>
+    git tag 1.0.0
+    ↪ SemVer = 1.0.0
     
-    # mark kickoff of V2
-    git commit -m "kickoff-2.x" --allow-empty
-    git tag kickoff-2.x
-    git tag 2.0.0
-    ↪ SemVer = 2.0.0
-
-    # create development branch for 2.x from main
+    # create development branch for 1.1.x from main
     git checkout -b develop
     {
       # merge (and archive) latest release branch into develop
       git merge --no-ff release/<mj>.<mi>.<p>
       git branch -m release/<mj>.<mi>.<p> release/×/×<mj>.<mi>.<p>
 
-      git commit -m "starting development 2.x" --allow-empty
+      git commit -m "starting development 1.1.x" --allow-empty
       ↪ SemVer = 2.1.0-alpha.<N>
 
       ⁞
